@@ -1,0 +1,28 @@
+\documentclass{article}
+
+\usepackage[paperwidth=250pt,paperheight=195pt,margin=0pt]{geometry}
+\usepackage{pgfplots}
+
+\begin{document}
+	\hspace{-18pt}
+	\begin{tikzpicture}
+		\begin{axis}[
+			major grid style={dashed,gray!25},
+			grid = major,
+			ymax = 1.19,
+			xmax = 10.5,
+			axis x line=middle,
+			axis y line=middle,
+			xlabel near ticks,
+			ylabel near ticks,
+			xlabel = $D$,
+			ylabel = $V$,
+			no marks
+			]
+			\addplot+[]table[
+				x index = 0,
+				y index = 3
+			] {output/data/volume-dimension.dat};
+		\end{axis}
+	\end{tikzpicture}
+\end{document}
