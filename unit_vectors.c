@@ -6,7 +6,7 @@
 #define M_PI acos(-1.0)
 
 double get_rand();
-void uniform_draw(double *v, int d);
+void box_draw(double *v, int d);
 void polar_3d(double *v, int d);
 void equal_area_proj(double *v, int d);
 void discard_corners(double *v, int d);
@@ -16,12 +16,18 @@ int main(void)
 {
 	srand((unsigned int)time(NULL));
 
-	int d = 3;
+	mkdir("output");
+	mkdir("output/data");
 
-	generate_and_write(d, 2000, "test0.dat", uniform_draw);
-	generate_and_write(d, 2000, "test1.dat", polar_3d);
-	generate_and_write(d, 2000, "test2.dat", equal_area_proj);
-	generate_and_write(d, 2000, "test3.dat", discard_corners);
+	generate_and_write(3, 1000,    "output/data/box_draw_1000.dat",       box_draw);
+	generate_and_write(3, 10000,   "output/data/box_draw_10000.dat",      box_draw);
+	generate_and_write(3, 1000000, "output/data/box_draw_1000000.dat",    box_draw);
+	generate_and_write(3, 2000000, "output/data/box_draw_2000000.dat",    box_draw);
+
+	generate_and_write(3, 2000000, "output/data/polar_3d_2000000.dat",        polar_3d);
+
+	generate_and_write(3, 2000000, "output/data/equal_area_proj_2000000.dat", equal_area_proj);
+	generate_and_write(3, 2000000, "output/data/discard_corners_2000000.dat", discard_corners);
 
 	return 0;
 }
@@ -31,7 +37,7 @@ double get_rand()
 	return (double)rand()/RAND_MAX;
 }
 
-void uniform_draw(double *v, int d)
+void box_draw(double *v, int d)
 {
 	for (int i = 0; i < d; i++)
 	    v[i] = 2 * get_rand() - 1;
