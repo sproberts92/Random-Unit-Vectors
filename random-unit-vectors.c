@@ -19,15 +19,15 @@ int main(void)
 	mkdir("output");
 	mkdir("output/data");
 
-	generate_and_write(3, 1000,    "output/data/box_draw_1000.dat",       box_draw);
-	generate_and_write(3, 10000,   "output/data/box_draw_10000.dat",      box_draw);
-	generate_and_write(3, 1000000, "output/data/box_draw_1000000.dat",    box_draw);
-	generate_and_write(3, 2000000, "output/data/box_draw_2000000.dat",    box_draw);
+	generate_and_write(3, 1000,    "output/data/box-draw-1000.dat",       box_draw);
+	generate_and_write(3, 10000,   "output/data/box-draw-10000.dat",      box_draw);
+	generate_and_write(3, 1000000, "output/data/box-draw-1000000.dat",    box_draw);
+	generate_and_write(3, 2000000, "output/data/box-draw-2000000.dat",    box_draw);
 
-	generate_and_write(3, 2000000, "output/data/polar_3d_2000000.dat",        polar_3d);
+	generate_and_write(3, 2000000, "output/data/polar-3d-2000000.dat",        polar_3d);
 
-	generate_and_write(3, 2000000, "output/data/equal_area_proj_2000000.dat", equal_area_proj);
-	generate_and_write(3, 2000000, "output/data/discard_corners_2000000.dat", discard_corners);
+	generate_and_write(3, 2000000, "output/data/equal-area-proj-2000000.dat", equal_area_proj);
+	generate_and_write(3, 2000000, "output/data/discard-corners-2000000.dat", discard_corners);
 
 	return 0;
 }
