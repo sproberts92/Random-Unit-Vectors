@@ -4,31 +4,43 @@ from subprocess import call
 import os
 
 def main():
-	# process('box_draw_1000.dat',    'box-discard-z-scatter-1000.png',    discard_z, plt.plot, ',')
-	# process('box_draw_10000.dat',   'box-discard-z-scatter-10000.png',   discard_z, plt.plot, ',')
-	# process('box_draw_1000000.dat', 'box-discard-z-scatter-1000000.png', discard_z, plt.plot, ',')
-
-	# process('box_draw_2000000.dat', 'box-discard-z-hist2d-200.png',     discard_z, plt.hist2d, 200)
-	# process('box_draw_2000000.dat', 'box-discard-z-hist2d-20.png',      discard_z, plt.hist2d, 20)
-	# process('box_draw_2000000.dat', 'box-discard-z-hist2d-2000000.png', discard_z, plt.hist2d, 2000)
-
-	# process('box_draw_2000000.dat', 'box-discard-z-hist2d/frame_{0}.png', discard_z, plt.hist2d, 200, 25)
-
-	# process('box_draw_2000000.dat', 'box-lambert-hist2d-200.png',     lambert, plt.hist2d, 200)
-	# process('box_draw_2000000.dat', 'box-lambert-hist2d/frame_{0}.png', lambert, plt.hist2d, 200, 25)
-
-	# process('discard_corners_2000000.dat', 'discard_corners-discard-z-hist2d-200.png', discard_z, plt.hist2d, 200)
-	# process('discard_corners_2000000.dat', 'discard_corners-lambert-hist2d-200.png',   lambert,   plt.hist2d, 200)
-
-	# process('polar_3d_2000000.dat', 'polar-3d-discard-z-hist2d-200.png', discard_z, plt.hist2d, 200)
-	# process('polar_3d_2000000.dat', 'polar-3d-lambert-hist2d-200.png',   lambert,   plt.hist2d, 200)
-
-
 def rotate_data(data, i):
 	if i != 0:
 		# 48 is for 24fps video, we want to do 1/4 of one full rotation,
 		# which when looped will look like full rotation.
 		theta = i * np.pi / 48.0
+
+	# Figure 1
+	process('box_draw_10000.dat',   'box-discard-z-scatter-10000.png',   discard_z, plt.plot, ',')
+	# Figure 2
+	process('box_draw_1000.dat',    'box-discard-z-scatter-1000.png',    discard_z, plt.plot, ',')
+	# Figure 3
+	process('box_draw_1000000.dat', 'box-discard-z-scatter-1000000.png', discard_z, plt.plot, ',')
+
+	# Figure 4
+	process('box_draw_2000000.dat', 'box-discard-z-hist2d-200.png',     discard_z, plt.hist2d, 200, range=[[-1,1],[-1,1]])
+	# Figure 5
+	process('box_draw_2000000.dat', 'box-discard-z-hist2d-20.png',      discard_z, plt.hist2d, 20, range=[[-1,1],[-1,1]])
+	# Figure 6
+	process('box_draw_2000000.dat', 'box-discard-z-hist2d-2000000.png', discard_z, plt.hist2d, 2000, range=[[-1,1],[-1,1]])
+
+	# Figure 7
+	process('box_draw_2000000.dat', 'box-discard-z-hist2d/frame_{0}.png', discard_z, plt.hist2d, 200, range=[[-1,1],[-1,1]], frames=25)
+
+	# Figure 8
+	process('box_draw_2000000.dat', 'box-lambert-hist2d-200.png',     lambert, plt.hist2d, 200, range=[[-2,2],[-2,2]])
+	# Figure 9
+	process('box_draw_2000000.dat', 'box-lambert-hist2d/frame_{0}.png', lambert, plt.hist2d, 200, range=[[-2,2],[-2,2]], frames=25)
+
+	# Figure 10
+	process('discard_corners_2000000.dat', 'discard_corners-discard-z-hist2d-200.png', discard_z, plt.hist2d, 50, range=[[-1,1],[-1,1]])
+	# Figure 11
+	process('discard_corners_2000000.dat', 'discard_corners-lambert-hist2d-200.png',   lambert,   plt.hist2d, 50, range=[[-2,2],[-2,2]])
+
+	# Figure 12
+	process('polar_3d_2000000.dat', 'polar-3d-discard-z-hist2d-200.png', discard_z, plt.hist2d, 50, range=[[-1,1],[-1,1]])
+	# Figure 13
+	process('polar_3d_2000000.dat', 'polar-3d-lambert-hist2d-200.png',   lambert,   plt.hist2d, 50, range=[[-2,2],[-2,2]])
 
 		rotation = np.array([[np.cos(theta), 0, -np.sin(theta)], [0, 1, 0], [np.sin(theta), 0, np.cos(theta)]])
 
