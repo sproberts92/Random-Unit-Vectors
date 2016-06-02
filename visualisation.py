@@ -55,13 +55,15 @@ def lambert(data):
 	a = data[np.where(data.T[2] < 1.0)].T
 
 	# Actually do the projection
-	a = np.array([np.sqrt(2 / (1 - a[2])) * a[0], np.sqrt(2 / (1 - a[2])) * a[1]]).T
+	return np.array([np.sqrt(2 / (1 - a[2])) * a[0], np.sqrt(2 / (1 - a[2])) * a[1]])
 
 	# Shouldn't have to do this last filtering but I keep ending up with some points
 	# outside the disc.
-	return a[np.where(abs(a.T[0]) < 2.0) and np.where(abs(a.T[0]) < 2.0)].T
+	# return a[np.where(abs(a.T[0]) < 2.0) and np.where(abs(a.T[0]) < 2.0)].T
 
-def process(in_name, out_name, proj, plot_t, fmt, frames=1):
+def process(in_name, out_name, proj, plot_t, pos_arg, frames=1, **kwargs):
+	print('Processing {0}...'.format(out_name), end='')
+
 	in_path = "output/data/{0}".format(in_name)
 	out_path = "output/plots/{0}".format(out_name)
 
@@ -79,9 +81,14 @@ def process(in_name, out_name, proj, plot_t, fmt, frames=1):
 		theta = i * np.pi / (2 * frames)
 		X, Y = proj(rotate_data(data, theta))
 
+		# Close any old figures left over from the last animation frame
 		plt.close()
+
+		# Create a new figure with fixed size and no frame
 		plt.figure(figsize=(4, 4), frameon=False)
-		plot_t(X, Y, fmt)
+
+		# It would be nice to pass pos_arg
+		plot_t(X, Y, pos_arg, **kwargs)
 
 		# A lot of options just to get a borderless image
 		ax = plt.axes()
