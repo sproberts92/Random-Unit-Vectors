@@ -59,9 +59,14 @@ void polar_3d(double *v, int d)
 	double theta = 2 * M_PI * get_rand();
 	double phi = M_PI * get_rand();
 
-	v[0] = sin(theta) * cos(theta);
-	v[1] = sin(theta) * sin(theta);
-	v[2] = cos(theta);
+	v[0] = sin(theta) * cos(phi);
+	v[1] = cos(theta);
+	v[2] = sin(theta) * sin(phi);
+
+	/* Note, y and z coordinates switched from the
+	 * presentation in the post in order to to rotate
+	 * the sphere giving a front view instead of a
+	 * top view. The front view is more enlightening. */
 }
 
 void equal_area_proj(double *v, int d)
