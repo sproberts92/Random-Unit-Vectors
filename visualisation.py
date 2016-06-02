@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from subprocess import call
 import os
 
 def main():
@@ -79,7 +80,12 @@ def process(in_name, out_name, proj, plot_t, fmt, frames=1):
 
 		plt.savefig(out_path.format(i), bbox_inches='tight', pad_inches=0)
 		plt.close()
-		# plt.show()
+
+	# If we're dealing with multiple frames then encode them into an html5 video.
+	if frames > 1:
+		call(['ffmpeg', '-loglevel', 'quiet', '-f', 'image2', '-i', out_path.format('%d'), '-c:v', 'libvpx', '-b:v', '64M', '{0}.webm'.format(d)])
+
+	print(' Done.')
 
 if __name__ == '__main__':
 	main()
