@@ -4,12 +4,6 @@ from subprocess import call
 import os
 
 def main():
-def rotate_data(data, i):
-	if i != 0:
-		# 48 is for 24fps video, we want to do 1/4 of one full rotation,
-		# which when looped will look like full rotation.
-		theta = i * np.pi / 48.0
-
 	# Figure 1
 	process('box_draw_10000.dat',   'box-discard-z-scatter-10000.png',   discard_z, plt.plot, ',')
 	# Figure 2
@@ -42,6 +36,8 @@ def rotate_data(data, i):
 	# Figure 13
 	process('polar_3d_2000000.dat', 'polar-3d-lambert-hist2d-200.png',   lambert,   plt.hist2d, 50, range=[[-2,2],[-2,2]])
 
+def rotate_data(data, theta):
+	if theta != 0:
 		rotation = np.array([[np.cos(theta), 0, -np.sin(theta)], [0, 1, 0], [np.sin(theta), 0, np.cos(theta)]])
 
 		return np.array([np.dot(rotation, point) for point in data])
@@ -78,7 +74,10 @@ def process(in_name, out_name, proj, plot_t, fmt, frames=1):
 	data = np.loadtxt(in_path)
 
 	for i in range(frames):
-		X, Y = proj(rotate_data(data, i))
+		# 48 is for 24fps video, we want to do 1/4 of one full rotation,
+		# which when looped will look like full rotation.
+		theta = i * np.pi / (2 * frames)
+		X, Y = proj(rotate_data(data, theta))
 
 		plt.close()
 		plt.figure(figsize=(4, 4), frameon=False)
